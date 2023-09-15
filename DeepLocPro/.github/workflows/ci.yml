@@ -1,0 +1,33 @@
+name: CI
+
+on: push
+
+env:
+    BIOLIB_LOG: debug
+    BIOLIB_PROJECT_URI: KU/DeepLocPro
+    LOCAL_DOCKER_TAG: deeplocpro:latest
+
+jobs:
+    build-and-publish:
+        name: Build Docker image and publish if on master
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+
+            -   name: Build docker image
+                run: docker build -t $LOCAL_DOCKER_TAG -f Dockerfile .
+
+            -   name: Setup Python
+                uses: actions/setup-python@v2
+                with:
+                    python-version: 3.8
+
+            -   name: Install BioLib CLI
+                run: pip3 install pybiolib
+
+            -   name: Publish new version to BioLib if on master branch
+                if: github.ref == 'refs/heads/master'
+                run: biolib push $BIOLIB_PROJECT_URI
+                env:
+                    BIOLIB_TOKEN: ${{ secrets.BIOLIB_TOKEN }}

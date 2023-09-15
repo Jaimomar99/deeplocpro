@@ -1,0 +1,73 @@
+biolib_version: 2
+
+remote_hosts:
+    - alphafold.ebi.ac.uk
+    - www.ebi.ac.uk
+    - rest.uniprot.org
+
+modules:
+    main:
+        image: 'local-docker://membranefold:latest'
+        command: python3 src/main.py
+        input_files:
+            - COPY / /
+        output_files: 
+
+            - COPY /output/deeptmhmm/TMRs.gff3 /
+            - COPY /output/deeptmhmm/plot.png /
+            - COPY /output/deeptmhmm/deeptmhmm_results.md /
+            - COPY /output/*/*.pdb /
+            - COPY /output/output.html /
+
+
+        source_files: []
+
+    deeptmhmm:
+        image: 'biolib://DTU/DeepTMHMM:1.0.18'
+        input_files: []
+        output_files: []
+        source_files: []
+
+    alphafold:
+        image: 'biolib://protein_tools/omegafold:0.0.10'
+        input_files: []
+        output_files: []
+        source_files: []
+
+arguments:
+
+    -
+        default_value: src/demo.fasta
+        description: 'File submission: Input the sequence or Uniprot Id, or upload a local fasta or PDB file'
+        key: '--file'
+        key_value_separator: ' '
+        required: true
+        type: text-file
+
+    -   
+        key: '--OF'
+        description: 'Run OmegaFold if there is not an exact match in Alphafold Database'
+        key_value_separator: ''
+        default_value: 'yes'
+        type: toggle
+        required: False
+        options:
+            'on': 'yes'
+            'off': 'no'
+     
+
+# this goes in config.yml
+citation:
+    entry_type: misc
+    author: >-
+        Santiago Gutierrez, Wojciech G. Tyczynski, Wouter Boomsma, Felix Teufel, Ole Winther
+    howpublished: Web Server
+    month: '12'
+    title: 'MembraneFold: Visualising transmembrane protein structure and topology'
+    year: '2022'
+    url: https://www.biorxiv.org/content/10.1101/2022.12.06.518085v1
+    doi: https://doi.org/10.1101/2022.12.06.518085 
+
+
+
+main_output_file: /output.html
