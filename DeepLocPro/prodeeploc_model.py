@@ -48,4 +48,4 @@ class DeepLocModel(nn.Module):
         # predict from sequence embeddings
         logits = self.mlp(sequence_embeddings)
 
-        return logits
+        return logits, attention_weights

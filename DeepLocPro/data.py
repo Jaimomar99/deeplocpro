@@ -45,36 +45,6 @@ class FastaBatchedDatasetTorch(torch.utils.data.Dataset):
         _flush_current_buf()
         return batches
 
-class BatchConverterProtT5(object):
-    """Callable to convert an unprocessed (labels + strings) batch to a
-    processed (labels + tensor) batch.
-    """
-
-    def __init__(self, alphabet):
-        self.alphabet = alphabet
-
-    def __call__(self, raw_batch):
-        # RoBERTa uses an eos token, while ESM-1 does not.
-        batch_size = len(raw_batch)
-        #print(len(raw_batch[0]), raw_batch[1], raw_batch[2])
-        max_len = max(len(seq_str) for seq_str, _ in raw_batch)
-        labels = []
-        lengths = []
-        strs = []
-        for i, (seq_str, label) in enumerate(raw_batch):
-            #seq_str = seq_str[1:]
-            labels.append(label)
-            lengths.append(len(seq_str))
-            strs.append(seq_str)
-        
-        proteins = [" ".join(list(item)) for item in strs]
-        proteins = [re.sub(r"[UZOB]", "X", sequence) for sequence in proteins]
-        ids = self.alphabet.batch_encode_plus(proteins, add_special_tokens=True, padding=True)
-        non_pad_mask = torch.tensor(ids['input_ids']) > -100 # B, T
-
-        return ids, torch.tensor(lengths), non_pad_mask, labels
-
-
 class BatchConverter(object):
     """Callable to convert an unprocessed (labels + strings) batch to a
     processed (labels + tensor) batch.
@@ -119,6 +89,3 @@ def read_fasta(fastafile):
     for prot in proteins:
         res[str(prot.id)] = str(prot.seq)
     return res
-
-# with open("/tools/src/deeploc-2.0/models/ESM1b_alphabet.pkl", "rb") as f:
-#     alphabet = pickle.load(f)
