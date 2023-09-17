@@ -47,7 +47,7 @@ setuptools.setup(
     author_email="jjaa@stanford.edu",
     description="Prediction of subcellular localization",
     #scripts=['bin/deeploc2'],
-    entry_points={'console_scripts':['deeploc2=DeepLoc2.deeploc2:predict']},
+    entry_points={'console_scripts':['deeplocpro=DeepLocPro.deeploc2:predict']},
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://services.healthtech.dtu.dk/service.php?DeepLoc-2.0",

@@ -1,3 +1,6 @@
+
+TODO Rewrite everything - these are the instructions that users get when they download the package.
+
 DeepLoc 2.1
 ===========
 
@@ -37,7 +40,7 @@ The installation procedure is:
          pip install .
 
   2. Test DeepLoc 2.1 by running:
-     deeploc2 -f test.fasta
+     deeplocpro -f test.fasta
      
      the result should look like the file in the 'output' directory
 

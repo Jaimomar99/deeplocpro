@@ -3,7 +3,7 @@ import warnings
 warnings.filterwarnings("ignore")
 import onnxruntime
 import sys
-from DeepLoc2.data import read_fasta, FastaBatchedDatasetTorch
+from .data import read_fasta, BatchedSequenceDataset
 import os
 import pickle
 import argparse
@@ -13,20 +13,26 @@ import re
 import torch
 import time
 import pkg_resources
-from DeepLoc2.model import ESM1bE2E
-from DeepLoc2.utils import 
+from .model import EnsembleModel
+import logging
 logging.set_verbosity_error()
+from utils import convert_label2string, generate_attention_plot_files
 
 
 def run_model(embed_dataloader, args, test_df):
     multilabel_dict = {}
     attn_dict = {}
     with torch.no_grad():
-        model = ESM1bE2E().to(args.device)
-        for i, (toks, lengths, np_mask, labels) in enumerate(embed_dataloader):
-              ml_out, attn_out = model(toks, lengths, np_mask)
-              multilabel_dict[labels[0]] = ml_out
-              attn_dict[labels[0]] = attn_out
+        model = EnsembleModel().to(args.device)
+        for i, (sequences, names) in enumerate(embed_dataloader):
+              
+              embeddings, masks = model.embed_batch(sequences)
+              ml_out, attn_out = model(embeddings, masks)
+
+            #   multilabel_dict[names] = ml_out
+            #   attn_dict[labels[0]] = attn_out
+    
+    # TODO clean up multilabel stuff. We just want probabilities for each class.
 
     multilabel_df = pd.DataFrame(multilabel_dict.items(), columns=['ACC', 'multilabel'])
     attn_df = pd.DataFrame(attn_dict.items(), columns=['ACC', 'Attention'])
@@ -40,46 +46,46 @@ def run_model(embed_dataloader, args, test_df):
 def main(args):
     fasta_dict = read_fasta(args.fasta)
     test_df = pd.DataFrame(fasta_dict.items(), columns=['ACC', 'Sequence'])
+    #TODO @Jaime adapt in correct order
     labels = ["Cytoplasm","Nucleus","Extracellular","Cell membrane","Mitochondrion","Plastid","Endoplasmic reticulum","Lysosome/Vacuole","Golgi apparatus","Peroxisome"]
 
     
-    def clip_middle(x):
-        if len(x)>1022:
-            x = x[:511] + x[-511:]
-        return x
-    test_df["Sequence"] = test_df["Sequence"].apply(lambda x: clip_middle(x))
-    alphabet_path = pkg_resources.resource_filename('DeepLoc2',"models/ESM1b_alphabet.pkl")
-
-    with open(alphabet_path, "rb") as f:
-        alphabet = pickle.load(f)
-    #alphabet = Alphabet(proteinseq_toks)
-    embed_dataset = FastaBatchedDatasetTorch(test_df)
+    # TODO don't really see the point of all of this.
+    # I think get_batch_indices(0,) means that each batch will only be a single sequence.
+    embed_dataset = BatchedSequenceDataset(test_df)
     embed_batches = embed_dataset.get_batch_indices(0, extra_toks_per_seq=1)
-    embed_dataloader = torch.utils.data.DataLoader(embed_dataset, collate_fn=BatchConverter(alphabet), batch_sampler=embed_batches)
+    embed_dataloader = torch.utils.data.DataLoader(embed_dataset, batch_sampler=embed_batches)
     pred_df = run_model(embed_dataloader, args, test_df)
 
-    pred_df["Class_MultiLabel"] = pred_df["multilabel"].apply(lambda x: convert_label2string(x, label_threshold))
+    # TODO adapt convert_label2string to work in multiclass
+    # 1. get argmax of probs 2. replace argmax integer with name from labels
+    # pred_df["Class_MultiLabel"] = pred_df["multilabel"].apply(lambda x: convert_label2string(x, label_threshold))
+    pred_df['Class'] = #TODO
     pred_df["multilabel"] = pred_df["multilabel"].apply(lambda x: x[0, 1:])
 
+
     if args.plot:
+        #TODO ensure this works with new pred_df format
         generate_attention_plot_files(pred_df, args.output)
     timestr = time.strftime("%Y%m%d-%H%M%S")
-    csv_out = '{}/results_{}.csv'.format(args.output,timestr)
+    csv_out = f'{args.output}/results_{timestr}.csv'
     out_file = open(csv_out,"w")
-    out_file.write("Protein_ID,Localizations,Signals,{},{}\n".format(",".join(labels),",".join(memtypes)))
+    out_file.write(f"Protein_ID,Localization,{','.join(labels)}\n")
+    
 
+    # TODO adapt all of this to work with multiclass. But we want a format that 
+    # is very similar to deeploc, for consistency.
+    # but maybe all the below stuff is a waste of time and we can just restructure
+    # pred_df a bit and then to_csv()
     for prot_ind,prot in pred_df.iterrows():
         #idd = str(ids_test[prot]).split("/")
-        pred_labels = prot['Class_MultiLabel']
-        pred_signals = prot['Class_SignalType']
-        pred_memtypes = prot['Class_Memtype']
+        pred_labels = prot['Class']
+
         order_pred = np.argsort(prot['multilabel'])
-        order_memtype_pred = np.argsort(prot['memtype'])
         
         if pred_labels == "":
             pred_labels = labels[order_pred[-1]]
-        if pred_memtypes == "":
-            pred_memtypes = memtypes[order_memtype_pred[-1]]
+
 
         pred_prob = np.around(prot['multilabel'], decimals=4)
         thres_prob = pred_prob-label_threshold[1:]
@@ -91,15 +97,6 @@ def main(args):
         thres_diff = [ '%.4f' % elem for elem in thres_prob.tolist()]
         csv_likelihood = csv_prob.tolist()
         
-        pred_memtype_prob = np.around(prot['memtype'], decimals=4)[0]
-        thres_memtype_prob = pred_memtype_prob-memtype_threshold
-        thres_memtype_prob[thres_memtype_prob < 0.0] = 0.0
-        thres_memtype_max = 1.0 - memtype_threshold
-        thres_memtype_prob = thres_memtype_prob / thres_memtype_max
-        csv_memtype_prob = np.around(prot['memtype'], decimals=4)
-        likelihood_memtype = [ '%.4f' % elem for elem in pred_memtype_prob.tolist()]
-        thres_memtype_diff = [ '%.4f' % elem for elem in thres_memtype_prob.tolist()]
-        csv_memtype_likelihood = csv_memtype_prob.tolist()
 
         seq_id = prot['ACC']
         seq_aa = prot['Sequence']

@@ -26,7 +26,8 @@ def slugify(value, allow_unicode=False):
     value = re.sub(r'[^\w\s-]', '', value.lower())
     return re.sub(r'[-\s]+', '-', value).strip('-_')
 
-def letterAt(letter, x, y, yscale=1, ax=None):
+def letter_at(letter, x, y, yscale=1, ax=None):
+    '''Draws a letter at a given location in data coordinates.'''
     fp = FontProperties(family="Arial", weight="bold")
     globscale = 1.35
     LETTERS = { "A" : TextPath((-0.305, 0), "A", size=1, prop=fp),
@@ -83,12 +84,12 @@ def letterAt(letter, x, y, yscale=1, ax=None):
     t = mpl.transforms.Affine2D().scale(1*globscale, yscale*globscale) + \
         mpl.transforms.Affine2D().translate(x,y) + ax.transData
     p = PathPatch(text, lw=0, fill=True,fc=COLOR_SCHEME[letter],  transform=t)
-    if ax != None:
+    if ax is not None:
         ax.add_artist(p)
 
     return p
 
-def create_logo(alphas, seqs, acc, acc_file, signals, out_path, max_len, offset):
+def create_logo(alphas, seqs, acc, acc_file, out_path, max_len, offset):
     aa_dict = ["A","R","N","D","B","C","Q","E","Z","G","H","I","L","K","M","F","P","S","T","W","Y","V","X"]
     list_positions = np.arange(0,len(seqs)+max_len,max_len)
     alphas_norm = (alphas - alphas.min()) / (alphas.max() - alphas.min())+offset
@@ -98,7 +99,6 @@ def create_logo(alphas, seqs, acc, acc_file, signals, out_path, max_len, offset)
     mpl.rc('font', **font)
     mpl.rcParams['axes.linewidth'] = 4
     fig, axs = plt.subplots(n_chunck,1, figsize=(60, (n_chunck*7)+3), facecolor='w', edgecolor='k')
-    fig.suptitle(acc+f'\nPredicted Signals: {signals}',ha='center', va='top')
     fig.subplots_adjust(hspace = 0.3-(n_chunck*0.01), wspace=.001, top=0.83+(n_chunck*0.012))
     for index, pos in enumerate(list_positions[:-1]):
         seq = seqs[list_positions[index]:list_positions[index+1]]
@@ -112,7 +112,7 @@ def create_logo(alphas, seqs, acc, acc_file, signals, out_path, max_len, offset)
         for ii, aa in enumerate(seq):
             if aa not in aa_dict:
                 aa = "X"
-            letterAt(aa, x,0, curr_alpha[ii], axs_chunck)
+            letter_at(aa, x,0, curr_alpha[ii], axs_chunck)
             x += 1
 
         axs_chunck.axhline(y=offset, color='black', linestyle='--')
@@ -129,7 +129,6 @@ def create_logo(alphas, seqs, acc, acc_file, signals, out_path, max_len, offset)
     plt.xlabel('Sequence position')
     fig.text(0.085, 0.5, 'Sorting signal importance', va='center', rotation='vertical')
 
-    #fig.text(0.50, -0.05, f'Predicted Signals: {signals}', va='center', rotation='horizontal')
 
     fig.savefig(os.path.join(out_path, f"alpha_{acc_file}.png"), bbox_inches='tight')
 
@@ -144,29 +143,12 @@ def convert_label2string(x, threshold):
             out_list.append(labels[i])
     return ", ".join(out_list)
 
-def convert_signal2string(x, threshold):
-    signals = ["Signal peptide", "Transmembrane domain", "Mitochondrial transit peptide", "Chloroplast transit peptide", "Thylakoid luminal transit peptide", "Nuclear localization signal", "Nuclear export signal", "Peroxisomal targeting signal"]
-    preds = (x>threshold).astype(int)
-    out_list = []
-    for i in range(8):
-        if preds[0, i] == 1:
-            out_list.append(signals[i])
-    return ", ".join(out_list)
 
-def convert_memtype2string(x, threshold):
-    labels = ["Peripheral", "Transmembrane", "Lipid anchor", "Soluble"]
-    preds = (x>threshold).astype(int)
-    out_list = []
-    for i in range(4):
-        if preds[0, i] == 1:
-            out_list.append(labels[i])
-    return ", ".join(out_list)
 
 def generate_attention_plot_files(output_df, out_path):
     for i in range(len(output_df)):
         acc = output_df["ACC"][i]
         acc_file = slugify(acc)
-        signals =  output_df["Class_SignalType"][i]
         y = output_df["Attention"][i][0]
         seqs = output_df["Sequence"][i]
-        create_logo(y, seqs, acc, acc_file, signals, out_path, 100, 0.15)
+        create_logo(y, seqs, acc, acc_file, out_path, 100, 0.15)

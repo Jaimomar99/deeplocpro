@@ -20,12 +20,11 @@ class DeepLocModel(nn.Module):
 
         self.drop_layer = nn.Dropout(p=drop)
 
-    def forward(self, embeddings: torch.Tensor, mask: torch.Tensor, targets: torch.Tensor = None):
+    def forward(self, embeddings: torch.Tensor, mask: torch.Tensor):
         """Predict the location from the precomputed embeddings.
         Args:
             embeddings (torch.Tensor): precomputed embeddings. (batch_size, seq_len, embedding_dim)
             mask (torch.Tensor): Padding mask for embeddings. 0 where padded.
-            targets (torch.Tensor, optional): Labels to compute loss on. Defaults to None. (batch_size, n_classes)
         """
         # embeddings = embeddings.to(torch.float16)
         embeddings = self.initial_ln(embeddings.float())
