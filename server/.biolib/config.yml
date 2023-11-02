@@ -1,0 +1,78 @@
+biolib_version: 2
+
+
+modules:
+    main:
+        image: 'local-docker://deeplocpro:latest'
+        command: deeplocpro
+        input_files:
+            - COPY / /
+        output_files: 
+
+            - COPY /output/*
+
+
+        source_files: []
+
+citation:
+    entry_type: misc
+    author: >-
+        TBD
+    howpublished: Web Server
+    month: '12'
+    title: TBD
+    year: '2022'
+    url: TBD
+    doi: TBD
+
+
+
+    parser.add_argument(
+        "-p","--plot", default=False, action='store_true', help="Plot attention values"
+
+main_output_file: /output.md
+arguments:
+    -
+        default_value: /home/deeplocpro/sample.fasta
+        description: 'Sequence submission: paste the sequence(s) and/or upload a local file'
+        key: '--fasta'
+        key_value_separator: ' '
+        required: true
+        type: text-file
+    -
+        default_value: /output
+        description: ''
+        key: '--output'
+        key_value_separator: ' '
+        required: true
+        type: hidden
+    -
+        default_value: cpu
+        description: ''
+        key: '--device'
+        key_value_separator: ' '
+        required: true
+        type: hidden
+    -
+        default_value: any
+        description: 'Organism group of input'
+        key: '--group'
+        key_value_separator: ' '
+        required: true
+        type: radio
+        options:
+            Any: any
+            Archaea: archaea
+            Gram+: positive
+            Gram-: negative
+    -
+    default_value: ''
+    description: Make plots
+    key: ''
+    key_value_separator: ' '
+    required: false
+    type: toggle
+    options:
+        'on': '--plot'
+        'off': ''
+-
