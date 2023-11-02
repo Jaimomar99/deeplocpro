@@ -1,8 +1,7 @@
 import torch
 import torch.nn as nn
 
-
-class DeepLocModel(nn.Module):
+class ProDeepLocModel(nn.Module):
     '''Single-label localization prediction model'''
     def __init__(self, embedding_dim: int=1280, mlp_dim: int=256, num_classes: int=9, drop: float=0.1):
         
@@ -46,5 +45,4 @@ class DeepLocModel(nn.Module):
 
         # predict from sequence embeddings
         logits = self.mlp(sequence_embeddings)
-
         return logits, attention_weights

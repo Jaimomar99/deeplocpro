@@ -1,6 +1,5 @@
 import os
 import matplotlib as mpl
-import matplotlib.style as mplstyle
 import matplotlib.pyplot as plt
 import matplotlib.font_manager
 from matplotlib.text import TextPath
@@ -26,58 +25,59 @@ def slugify(value, allow_unicode=False):
     value = re.sub(r'[^\w\s-]', '', value.lower())
     return re.sub(r'[-\s]+', '-', value).strip('-_')
 
+
 def letter_at(letter, x, y, yscale=1, ax=None):
     '''Draws a letter at a given location in data coordinates.'''
-    fp = FontProperties(family="Arial", weight="bold")
+    fp = FontProperties(family= "Arial", weight="bold")
     globscale = 1.35
     LETTERS = { "A" : TextPath((-0.305, 0), "A", size=1, prop=fp),
             "R" : TextPath((-0.384, 0), "R", size=1, prop=fp),
             "N" : TextPath((-0.35, 0), "N", size=1, prop=fp),
             "D" : TextPath((-0.366, 0), "D", size=1, prop=fp),
-           "B" : TextPath((-0.366, 0), "B", size=1, prop=fp),
-           "C" : TextPath((-0.366, 0), "C", size=1, prop=fp),
-           "Q" : TextPath((-0.366, 0), "Q", size=1, prop=fp),
-           "E" : TextPath((-0.366, 0), "E", size=1, prop=fp),
-           "Z" : TextPath((-0.366, 0), "Z", size=1, prop=fp),
-           "G" : TextPath((-0.366, 0), "G", size=1, prop=fp),
-           "H" : TextPath((-0.366, 0), "H", size=1, prop=fp),
-           "I" : TextPath((-0.2, 0), "I", size=1, prop=fp),
-           "L" : TextPath((-0.366, 0), "L", size=1, prop=fp),
-           "K" : TextPath((-0.366, 0), "K", size=1, prop=fp),
-           "M" : TextPath((-0.366, 0), "M", size=1, prop=fp),
-           "F" : TextPath((-0.366, 0), "F", size=1, prop=fp),
-           "P" : TextPath((-0.366, 0), "P", size=1, prop=fp),
-           "S" : TextPath((-0.366, 0), "S", size=1, prop=fp),
-           "T" : TextPath((-0.366, 0), "T", size=1, prop=fp),
-           "W" : TextPath((-0.42, 0), "W", size=1, prop=fp),
-           "Y" : TextPath((-0.366, 0), "Y", size=1, prop=fp),
-           "V" : TextPath((-0.366, 0), "V", size=1, prop=fp),
-           "X" : TextPath((-0.3, 0), "X", size=1, prop=fp)
-           }
+            "B" : TextPath((-0.366, 0), "B", size=1, prop=fp),
+            "C" : TextPath((-0.366, 0), "C", size=1, prop=fp),
+            "Q" : TextPath((-0.366, 0), "Q", size=1, prop=fp),
+            "E" : TextPath((-0.366, 0), "E", size=1, prop=fp),
+            "Z" : TextPath((-0.366, 0), "Z", size=1, prop=fp),
+            "G" : TextPath((-0.366, 0), "G", size=1, prop=fp),
+            "H" : TextPath((-0.366, 0), "H", size=1, prop=fp),
+            "I" : TextPath((-0.2, 0), "I", size=1, prop=fp),
+            "L" : TextPath((-0.366, 0), "L", size=1, prop=fp),
+            "K" : TextPath((-0.366, 0), "K", size=1, prop=fp),
+            "M" : TextPath((-0.366, 0), "M", size=1, prop=fp),
+            "F" : TextPath((-0.366, 0), "F", size=1, prop=fp),
+            "P" : TextPath((-0.366, 0), "P", size=1, prop=fp),
+            "S" : TextPath((-0.366, 0), "S", size=1, prop=fp),
+            "T" : TextPath((-0.366, 0), "T", size=1, prop=fp),
+            "W" : TextPath((-0.42, 0), "W", size=1, prop=fp),
+            "Y" : TextPath((-0.366, 0), "Y", size=1, prop=fp),
+            "V" : TextPath((-0.366, 0), "V", size=1, prop=fp),
+            "X" : TextPath((-0.3, 0), "X", size=1, prop=fp)
+            }
     COLOR_SCHEME = { "A" : "#d7191c",
                 "R" : "#2c7bb6",
                 "N" : "#abd9e9",
                 "D" : "#abd9e9",
-               "B" : "black",
-               "C" : "#abd9e9",
-               "Q" : "#abd9e9",
-               "E" : "#abd9e9",
-               "Z" : "black",
-               "G" : "#fdae61",
-               "H" : "#abd9e9",
-               "I" : "#fdae61",
-               "L" :"#fdae61",
-               "K" : "#abd9e9",
-               "M" : "#fdae61",
-               "F" : "#fdae61",
-               "P" : "#fdae61",
-               "S" : "#abd9e9",
-               "T" : "#abd9e9",
-               "W" : "#fdae61",
-               "Y" : "#abd9e9",
-               "V" : "#fdae61",
-               "X" : "black"
-               }
+                "B" : "black",
+                "C" : "#abd9e9",
+                "Q" : "#abd9e9",
+                "E" : "#abd9e9",
+                "Z" : "black",
+                "G" : "#fdae61",
+                "H" : "#abd9e9",
+                "I" : "#fdae61",
+                "L" :"#fdae61",
+                "K" : "#abd9e9",
+                "M" : "#fdae61",
+                "F" : "#fdae61",
+                "P" : "#fdae61",
+                "S" : "#abd9e9",
+                "T" : "#abd9e9",
+                "W" : "#fdae61",
+                "Y" : "#abd9e9",
+                "V" : "#fdae61",
+                "X" : "black"
+                }
     if letter not in COLOR_SCHEME:
         letter="X"
     text = LETTERS[letter]
@@ -128,21 +128,18 @@ def create_logo(alphas, seqs, acc, acc_file, out_path, max_len, offset):
     fig.text(0.085, 0.5, 'Sorting signal importance', va='center', rotation='vertical')
     plt.xlabel('Sequence position')
     fig.text(0.085, 0.5, 'Sorting signal importance', va='center', rotation='vertical')
-
-
     fig.savefig(os.path.join(out_path, f"alpha_{acc_file}.png"), bbox_inches='tight')
 
 
 
-def convert_label2string(x, threshold):
-    labels = ["Cytoplasm","Nucleus","Extracellular","Cell membrane","Mitochondrion","Plastid","Endoplasmic reticulum","Lysosome/Vacuole","Golgi apparatus","Peroxisome"]
-    preds = (x>threshold).astype(int)
-    out_list = []
-    for i in range(10):
-        if preds[0, i+1] == 1:
-            out_list.append(labels[i])
-    return ", ".join(out_list)
-
+def convert_label2string(x):
+    labels = ["Cell wall & surface",
+                "Extracellular",
+                "Cytoplasmic",
+                "Cytoplasmic Membrane",
+                "Outer Membrane",
+                "Periplasmic"]
+    return labels[x]
 
 
 def generate_attention_plot_files(output_df, out_path):
@@ -152,3 +149,12 @@ def generate_attention_plot_files(output_df, out_path):
         y = output_df["Attention"][i][0]
         seqs = output_df["Sequence"][i]
         create_logo(y, seqs, acc, acc_file, out_path, 100, 0.15)
+
+
+def remap_probabilities(probs):
+    '''Sum outer membrane and periplasm into extracellular'''
+    probs_fixed = probs.copy()
+    probs_fixed[1] = probs_fixed[1] + probs_fixed[4] + probs_fixed[5]
+    probs_fixed[4] = 0
+    probs_fixed[5] = 0 
+    return probs_fixed

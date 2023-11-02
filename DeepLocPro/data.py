@@ -28,7 +28,6 @@ class BatchedSequenceDataset(torch.utils.data.Dataset):
             buf = []
             max_len = 0
         start = 0
-        #start = random.randint(0, len(sizes))
         for j in range(len(sizes)):
             i = (start + j) % len(sizes)
             sz = sizes[i][0]
@@ -51,7 +50,6 @@ class BatchedSequenceDataset(torch.utils.data.Dataset):
             names.append(batch[1])
 
         return seqs, names
-
 
 
 def read_fasta(fastafile):

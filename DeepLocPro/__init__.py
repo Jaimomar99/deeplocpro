@@ -1,8 +1,7 @@
 # __init__.py
 """
-Prediction of protein subcellular localization
+Prediction of protein subcellular localization of Prokaryotic organisms
 """
-from . import deeploc2
+from . import deeplocpro
 from . import model
 from . import data
-from . import attr_prior
