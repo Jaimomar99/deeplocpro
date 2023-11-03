@@ -70,4 +70,3 @@ arguments:
         options:
             'on': '--plot'
             'off': ''
--
