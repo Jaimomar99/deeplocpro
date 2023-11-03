@@ -28,6 +28,6 @@ jobs:
 
             -   name: Publish new version to BioLib if on main branch
                 if: github.ref == 'refs/heads/main'
-                run: biolib push $BIOLIB_PROJECT_URI
+                run: cd server && biolib push $BIOLIB_PROJECT_URI
                 env:
                     BIOLIB_TOKEN: ${{ secrets.BIOLIB_TOKEN }}
