@@ -4,6 +4,7 @@ WORKDIR /home/deeplocpro
 COPY server .
 COPY DeepLocPro DeepLocPro
 COPY setup.py .
+COPY README.md .
 RUN pip install .
 
 COPY server/sample.fasta .
