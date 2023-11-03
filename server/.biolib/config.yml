@@ -25,11 +25,6 @@ citation:
     url: TBD
     doi: TBD
 
-
-
-    parser.add_argument(
-        "-p","--plot", default=False, action='store_true', help="Plot attention values"
-
 main_output_file: /output.md
 arguments:
     -
