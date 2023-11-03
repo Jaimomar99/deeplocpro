@@ -61,13 +61,13 @@ arguments:
             Gram+: positive
             Gram-: negative
     -
-    default_value: ''
-    description: Make plots
-    key: ''
-    key_value_separator: ' '
-    required: false
-    type: toggle
-    options:
-        'on': '--plot'
-        'off': ''
+        default_value: ''
+        description: Make plots
+        key: ''
+        key_value_separator: ' '
+        required: false
+        type: toggle
+        options:
+            'on': '--plot'
+            'off': ''
 -
