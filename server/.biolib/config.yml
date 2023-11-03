@@ -43,7 +43,7 @@ arguments:
         required: true
         type: hidden
     -
-        default_value: gpu
+        default_value: cuda
         description: ''
         key: '--device'
         key_value_separator: ' '
