@@ -9,7 +9,7 @@ env:
 
 jobs:
     build-and-publish:
-        name: Build Docker image and publish if on master
+        name: Build Docker image and publish if on main
         runs-on: ubuntu-latest
         steps:
             -   name: Checkout
@@ -26,8 +26,8 @@ jobs:
             -   name: Install BioLib CLI
                 run: pip3 install pybiolib
 
-            -   name: Publish new version to BioLib if on master branch
-                if: github.ref == 'refs/heads/master'
+            -   name: Publish new version to BioLib if on main branch
+                if: github.ref == 'refs/heads/main'
                 run: biolib push $BIOLIB_PROJECT_URI
                 env:
                     BIOLIB_TOKEN: ${{ secrets.BIOLIB_TOKEN }}
