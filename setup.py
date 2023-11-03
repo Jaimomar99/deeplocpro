@@ -51,7 +51,7 @@ setuptools.setup(
     setup_requires=setup_requires,
     cmdclass={'develop':PostDevelopCommand,'install':PostInstallCommand},
     packages=setuptools.find_packages(),
-    package_data={'DeepLocPro': ['models/*', 'models/models_esm1b/*']},
+    package_data={'DeepLocPro': ['models/*', 'models/checkpoints/*']},
     python_requires=">=3.6",
 )
 
