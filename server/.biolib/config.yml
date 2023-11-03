@@ -12,8 +12,8 @@ modules:
             - COPY /home/deeplocpro/output/ /
         source_files:
             - COPY /sample.fasta /home/deeplocpro/
-
-        source_files: []
+        default_machine: 'gpu.small'
+    
 
 citation:
     entry_type: misc
@@ -36,14 +36,14 @@ arguments:
         required: true
         type: text-file
     -
-        default_value: /output
+        default_value: /home/deeplocpro/output
         description: ''
         key: '--output'
         key_value_separator: ' '
         required: true
         type: hidden
     -
-        default_value: cpu
+        default_value: gpu
         description: ''
         key: '--device'
         key_value_separator: ' '
