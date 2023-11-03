@@ -5,12 +5,13 @@ modules:
     main:
         image: 'local-docker://deeplocpro:latest'
         command: deeplocpro
+        working_directory: /home/deeplocpro/
         input_files:
-            - COPY / /
-        output_files: 
-
-            - COPY /output/*
-
+            - COPY / /home/deeplocpro/
+        output_files:
+            - COPY /home/deeplocpro/output/ /
+        source_files:
+            - COPY /sample.fasta /home/deeplocpro/
 
         source_files: []
 
