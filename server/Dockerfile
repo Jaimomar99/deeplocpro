@@ -1,11 +1,5 @@
-FROM nvidia/cuda:11.1.1-runtime-ubuntu20.04
+FROM pytorch/pytorch:2.1.0-cuda12.1-cudnn8-runtime
 
-RUN rm /etc/apt/sources.list.d/cuda.list && \
-    apt-key del 7fa2af80 && \
-    apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
-
-RUN apt update
-RUN apt install python3 python3-pip -y
 
 WORKDIR /home/deeplocpro
 COPY server .
