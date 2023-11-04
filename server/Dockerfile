@@ -1,4 +1,8 @@
-FROM python:3.8-slim
+FROM nvidia/cuda:11.3.1-cudnn8-devel-ubuntu20.04
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt update && apt install -y wget \
+    python3-pip
 
 WORKDIR /home/deeplocpro
 COPY server .
