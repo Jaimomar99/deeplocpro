@@ -15,3 +15,5 @@ RUN rm -rf test
 # COPY webserver/make_output.py .
 # COPY webserver/run.sh .
 # RUN chmod +x run.sh
+RUN chmod +x run.sh
+
