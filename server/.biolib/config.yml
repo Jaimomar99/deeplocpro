@@ -4,7 +4,7 @@ biolib_version: 2
 modules:
     main:
         image: 'local-docker://deeplocpro:latest'
-        command: run.sh
+        command: /home/deeplocpro/run.sh
         working_directory: /home/deeplocpro/
         input_files:
             - COPY / /home/deeplocpro/
