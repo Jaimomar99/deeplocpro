@@ -9,6 +9,7 @@ COPY server/README.md .
 RUN pip3 install --no-cache-dir --find-links https://download.pytorch.org/whl/torch_stable.html .
 
 COPY server/sample.fasta .
+COPY server/make_markdown.py .
 
 # run once to download weights
 RUN deeplocpro --fasta sample.fasta --output test

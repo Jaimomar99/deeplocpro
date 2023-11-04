@@ -1,4 +1,5 @@
 #!/bin/bash
 
-nvidia-smi
+# nvidia-smi
 deeplocpro "$@"
+python3 make_markdown.py "$@"
