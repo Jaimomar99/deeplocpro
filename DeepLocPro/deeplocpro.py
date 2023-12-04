@@ -105,5 +105,3 @@ def predict():
     if not os.path.exists(args.output):
         os.mkdir(args.output)
     main(args)
-
-predict()
