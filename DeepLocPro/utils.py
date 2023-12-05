@@ -28,7 +28,7 @@ def slugify(value, allow_unicode=False):
 
 def letter_at(letter, x, y, yscale=1, ax=None):
     '''Draws a letter at a given location in data coordinates.'''
-    fp = FontProperties(family= "Arial", weight="bold")
+    fp = FontProperties(family= "DejaVu Sans", weight="bold") 
     globscale = 1.35
     LETTERS = { "A" : TextPath((-0.305, 0), "A", size=1, prop=fp),
             "R" : TextPath((-0.384, 0), "R", size=1, prop=fp),
