@@ -34,12 +34,10 @@ The installation procedure is:
      or within the deeplocpro directory:
          pip install .
 
-  2. Test DeepLoc 2.1 by running:
+  2. Test DeepLocPro 1.0 by running:
      deeplocpro -f test.fasta
      
-     the result should look like the file in the 'output' directory
-
-This will download only the 'Fast' model (ESM1b). The 'Accurate' model (ProtT5) uses more memory (approx. 32GB), therefore, it is not recommended for personal computers with limited memory. The 'Accurate' model will be downloaded the first time that the user chooses it at run time.
+The result should look like the file in the 'output' directory.
 
 Running
 --------
