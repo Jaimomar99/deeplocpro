@@ -53,5 +53,5 @@ if __name__ == "__main__":
         group=args.GROUP,
     )
 
-
+    DeepLocPro.deeplocpro.main(input_args)
 
