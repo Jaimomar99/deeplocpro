@@ -43,9 +43,9 @@ setuptools.setup(
     entry_points={'console_scripts':['deeplocpro=DeepLocPro.deeplocpro:predict']},
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://services.healthtech.dtu.dk/service.php?DeepLoc-2.0",
+    url="https://services.healthtech.dtu.dk/services/DeepLocPro-1.0/",
     project_urls={
-        "Bug Tracker": "https://services.healthtech.dtu.dk/service.php?DeepLoc-2.0",
+        "Bug Tracker": "https://services.healthtech.dtu.dk/services/DeepLocPro-1.0/",
     },
     install_requires=install_requires,
     setup_requires=setup_requires,
