@@ -37,8 +37,8 @@ install_requires = [
 setuptools.setup(
     name="DeepLocPro",
     version="1.0.0",
-    author="Jaime Moreno",
-    author_email="jxmm@novonordisk.com",
+    author="Felix Teufel",
+    author_email="felix.teufel@bio.ku.dk",
     description="Prediction of protein subcellular localization of Prokaryotic organisms",
     entry_points={'console_scripts':['deeplocpro=DeepLocPro.deeplocpro:predict']},
     long_description=long_description,

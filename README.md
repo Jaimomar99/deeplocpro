@@ -4,8 +4,6 @@ DeepLocPro 1.0
 
 DeepLocPro 1.0 is a multiclass subcellular localization prediction tool for prokaryotic proteins, trained on experimentally verified data curated from Uniprot and PSORTdb. DeepLocPro has been trained to work with prokaryotic proteins from a wide range of organisms covering Archaea, Gram-positive bacteria, and Gram-negative bacteria. It can differentiate between six different localizations: Cell wall & surface, Extracellular, Cytoplasmic, Cytoplasmic membrane, Outer membrane and Periplasmic.
 
-Additionally DeepLocPro can predict the presence of the sorting signal(s) that had an influence on the prediction of the subcellular localization(s).
-
 The DeepLocPro 1.0 server requires protein sequence(s) in fasta format, and can not handle nucleic acid sequences.
 
 Publication
@@ -30,11 +28,13 @@ The installation procedure is:
 
 
   1. Install DeepLocPro 1.0 package:
-        pip install deeplocpro.tar.gz
-     or within the deeplocpro directory:
-         pip install .
+
+    Within the deeplocpro directory:
+    
+      pip install .
 
   2. Test DeepLocPro 1.0 by running:
+     
      deeplocpro -f test.fasta
      
 The result should look like the file in the 'output' directory.
@@ -56,10 +56,10 @@ Output
 The output is a comma separated file with the following format:
 
  * 1st column: Protein ID.
- * 2nd column: Predicted localization(s).
+ * 2nd column: Predicted localization.
  * 3rd-8column: Probability for each of the individual localizations. 
 
-If --plot is defined, a plot and a text file with the sorting signal importance for each protein will be generated.
+If --plot is defined, a plot and a text file with the feature importance of the position for the prediction will be generated for each query protein.
 
 Problems and questions
 ----------------------
