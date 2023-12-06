@@ -28,14 +28,13 @@ The installation procedure is:
 
 
   1. Install DeepLocPro 1.0 package:
-
-    Within the deeplocpro directory:
     
-      pip install .
+    # Within the deeplocpro directory
+    pip install .
 
   2. Test DeepLocPro 1.0 by running:
      
-     deeplocpro -f test.fasta
+    deeplocpro -f test.fasta
      
 The result should look like the file in the 'output' directory.
 
