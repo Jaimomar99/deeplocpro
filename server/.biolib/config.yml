@@ -18,13 +18,13 @@ modules:
 citation:
     entry_type: misc
     author: >-
-        TBD
-    howpublished: Web Server
-    month: '12'
-    title: TBD
-    year: '2022'
-    url: TBD
-    doi: TBD
+        Jaime Moreno, Henrik Nielsen, Ole Winther, Felix Teufel
+    howpublished: Preprint
+    month: '1'
+    title: Predicting the subcellular location of prokaryotic proteins with DeepLocPro
+    year: '2024'
+    url: https://www.biorxiv.org/content/10.1101/2024.01.04.574157v1
+    doi: https://doi.org/10.1101/2024.01.04.574157
 
 main_output_file: /output.md
 arguments:
