@@ -12,3 +12,9 @@ The DeepLocPro 1.0 server requires protein sequence(s) in fasta format, and can 
 Refer to the publication for details on the model's architecture and its performance: [Preprint](https://www.biorxiv.org/content/10.1101/2024.01.04.574157v1) 
 
 For instructions and further information please refer to the official DeepLocPro 1.0 website at DTU: [Documentation](https://services.healthtech.dtu.dk/services/DeepLocPro-1.0/)
+
+
+#### Running locally
+--------------------
+
+The app running on this website is based on the DeepLocPro Python package. It is available on [GitHub](https://github.com/Jaimomar99/deeplocpro). Please refer to the README file there for instructions on how to install and run DeepLocPro locally.
