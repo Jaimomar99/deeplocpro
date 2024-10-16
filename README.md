@@ -18,7 +18,7 @@ More information about the method can be found at:
 Pre-installation
 ----------------
 
-DeepLocPro 1.0 will run and has been tested under Linux and OS X. The only prerequisite is to have python3.6 or above installed.
+DeepLocPro 1.0 will run and has been tested under Linux and OS X. The only prerequisite is to have Python 3.6 or above installed.
 
 
 Installation
@@ -27,7 +27,7 @@ Installation
 The installation procedure is:
 
 
-  1. Install DeepLocPro 1.0 package:
+  1. Install the DeepLocPro 1.0 package:
     
     # Within the deeplocpro directory
     pip install .
@@ -36,18 +36,18 @@ The installation procedure is:
      
     deeplocpro -f test.fasta
      
-The result should look like the file in the 'output' directory.
+This will create a directory `outputs` containing the predictions.
 
 Running
 --------
 
 DeepLoc will be installed under the name 'deeplocpro'. It has 4 possible arguments:
 
- * -f, --fasta. Input protein sequences in the fasta format.
- * -o, --output. Output folder name.
- * -p, --plot. Plot and save attention values for each individual protein. 
- * -d, --device. One of cpu, cuda or mps. Default: cpu.
- * -g, --group. Prevent outer membrane & periplasm prediction when Archaea/positive. One of any, archaea, positive or negative. Default: any
+ * `-f`, `--fasta`. Input protein sequences in the fasta format.
+ * `-o`, `--output`. Output folder name.
+ * `-p`, `--plot`. Plot and save attention values for each individual protein. 
+ * `-d`, `--device`. One of cpu, cuda or mps. Default: cpu.
+ * `-g`, `--group`. Prevent outer membrane & periplasm prediction when Archaea/positive. One of any, archaea, positive or negative. Default: any
 
 Output
 -------
@@ -58,12 +58,12 @@ The output is a comma separated file with the following format:
  * 2nd column: Predicted localization.
  * 3rd-8column: Probability for each of the individual localizations. 
 
-If --plot is defined, a plot and a text file with the feature importance of the position for the prediction will be generated for each query protein.
+If `--plot` is defined, a plot and a text file with the feature importance of the position for the prediction will be generated for each query protein.
 
 Problems and questions
 ----------------------
 
-In case of technical problems (bugs etc.) please contact packages@cbs.dtu.dk.
+In case of technical problems (bugs etc.) please contact health-master@dtu.dk.
 
 Questions on the scientific aspects of the DeepLocPro 1.0 method should go to Henrik
-Nielsen, hennin@dtu.dk.
+Nielsen, henni@dtu.dk.
