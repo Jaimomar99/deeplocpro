@@ -16,15 +16,15 @@ modules:
     
 
 citation:
-    entry_type: misc
+    entry_type: article
     author: >-
         Jaime Moreno, Henrik Nielsen, Ole Winther, Felix Teufel
-    howpublished: Preprint
-    month: '1'
+    journal: Bioinformatics
+    month: '11'
     title: Predicting the subcellular location of prokaryotic proteins with DeepLocPro
     year: '2024'
-    url: https://www.biorxiv.org/content/10.1101/2024.01.04.574157v1
-    doi: https://doi.org/10.1101/2024.01.04.574157
+    url: https://academic.oup.com/bioinformatics/article/40/12/btae677/7900293
+    doi: 10.1093/bioinformatics/btae677
 
 main_output_file: /output.md
 arguments:

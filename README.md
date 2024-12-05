@@ -9,7 +9,7 @@ The DeepLocPro 1.0 server requires protein sequence(s) in fasta format, and can 
 Publication
 ------------
 
-The preprint can be accessed here: https://www.biorxiv.org/content/10.1101/2024.01.04.574157v1.full
+The paper can be accessed here: https://academic.oup.com/bioinformatics/article/40/12/btae677/7900293
 
 More information about the method can be found at:
 
