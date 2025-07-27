@@ -26,23 +26,21 @@ Installation
 
 The installation procedure is:
 
-
   1. Install the DeepLocPro 1.0 package:
- 
+     ```bash
      # Within the deeplocpro directory
      pip install .
- 
+     ```
   2. Run the commands:
      ```bash
      chmod +x install.sh
      ./install.sh
      ```
-
- 
-  4. Test DeepLocPro 1.0 by running:
- 
+  3. Test DeepLocPro 1.0 by running:
+     ```bash
      deeplocpro -f test.fasta
- 
+     ```
+     
 This will create a directory `outputs` containing the predictions.
 
 Running
