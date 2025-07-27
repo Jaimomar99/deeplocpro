@@ -33,12 +33,13 @@ The installation procedure is:
      pip install .
  
   2. Run the commands:
- 
+     ```bash
      chmod +x install.sh
      ./install.sh
+     ```
 
  
-  3. Test DeepLocPro 1.0 by running:
+  4. Test DeepLocPro 1.0 by running:
  
      deeplocpro -f test.fasta
  
