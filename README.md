@@ -6,6 +6,8 @@ DeepLocPro 1.0 is a multiclass subcellular localization prediction tool for prok
 
 The DeepLocPro 1.0 server requires protein sequence(s) in fasta format, and can not handle nucleic acid sequences.
 
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
 Publication
 ------------
 
